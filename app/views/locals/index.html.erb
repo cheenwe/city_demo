@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Locals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Parent</th>
+      <th>Abbr</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% n = 0%>
+    <% @locals.each do |local| %>
+      <tr>
+        <td><%= n = n+1 %></td>
+        <td><%= local.id %></td>
+        <td><%= local.name %></td>
+        <td><%= local.type %></td>
+        <td><%= local.parent_id %></td>
+        <td><%= local.abbr %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Local', new_local_path %>
