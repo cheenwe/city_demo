@@ -2,6 +2,8 @@
 使用同一张表实现:国家-省-市-县-镇 的级联
 
 ## 字段整理如下:
+>表名:locals
+
   字段名 |名称|类型
   -----|------|-------
   name |名称|string
@@ -10,12 +12,14 @@
   abbr |缩写|string
 
 ## 定义读文档方法
+```ruby
 def path name
   File.read("#{Rails.root}/db/#{name}")
 end
-
+```
 ## 国家信息
 
+```ruby
 # countries = YAML::load(path("country.json"))
 countries =  JSON.parse(path("country.json"))
 
@@ -24,9 +28,9 @@ countries.each do |key, value|
   n= n+1
   Local::Contuny.create(id: n, name: value, abbr: key ) unless Local::Contuny.find_by_abbr(key).present?
 end
-
+```
 ## 省市县及街道
-
+```ruby
 areas = JSON.parse(path("areas.json"))
 
 streets = areas.values.flatten
@@ -49,6 +53,7 @@ streets.each do |street|
     Local::Street.create(name: text, id: id, abbr:abbr, parent_id: id[0..5] )  unless Local.find_by_id(id).present?
   end
 end
+```
 
 ## 用法
 ### 1.直接把db/locals.sql 导入到数据库 2.36 sec
